@@ -1,0 +1,25 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3740
+
+        This is a smart utility for quick run single c source file in vim.
+
+        It has follow features:
+                1. Use gcc compiler.
+                2. Compile and run single c source file just one command.
+                3. Program's output is showing below the source file in a new window.
+                4. You can hide the output window easily.
+                5. When there are some errors, quick window will automatically appears.
+                6. When there is no error, quick window hides automatically.
+                7. When you compile it, source code is saved by the script, so you need not to save it.
+                8. Only three commands, easily to remember, easily to use.
+
+        The most cool things are:
+                1. Run source file just one command.
+                2. Quick window shows and hides automatically.
+                3. Everything happened in vim, no ugly command window.
+
+Screenshot
+        Has bugs, quick window appears
+        http://vimer.1063083.n5.nabble.com/Quickfix-window-td4791439.html
+
+        No bug, output in vim, no command window
+        http://vimer.1063083.n5.nabble.com/Output-window-td4791441.html 
