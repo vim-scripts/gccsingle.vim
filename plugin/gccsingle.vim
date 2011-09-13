@@ -13,9 +13,10 @@
 "               8. Only three commands, easily to remember, easily to use.
 "
 "           The most cool things are:
-"               1. Everything happened in vim, no ugly command window.
-"               2. Quick window shows and hides automatically.
-"               3. Run the source file just one command.
+"                1. Run source file just one command.
+"                2. Quick window shows and hides automatically.
+"                3. Everything happened in vim, no ugly command window.
+"
 " Screenshot:
 "           1. Has bugs, quick window appears
 "               http://vimer.1063083.n5.nabble.com/Quickfix-window-td4791439.html
@@ -25,7 +26,7 @@
 " Author:   Tian Huixiong: <nedzqbear@gmail.com>
 "           I'm very glad to receive your feedback.
 
-" Version:  1.1
+" Version:  1.2
 " Update:   2011-09-13
 " Licence:  This script is released under the Vim License.
 "
@@ -36,9 +37,9 @@
 " Tutorial:
 "     Add these to your vimrc file:
 "     "-----gccsingle.vim-----: Quick run single c source file in vim
-"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,g  :call Gcc()<cr><c-w>w
-"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,r  :call RunWin()<cr>
-"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,h  :call HideOutputWin()<cr>
+"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,g  :call Gcc()<cr>
+"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,r  :call Run()<cr>
+"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,h  :call HideOutput()<cr>
 "     autocmd FileType tmp    nnoremap <buffer><silent> ,h  :q!<cr>
 "     
 "     compile and run:      ,g   (g means gcc)
@@ -55,11 +56,11 @@ function! Gcc()
 
     silent! exe 'make'
 
-    call HideOutputWin()
-    call ShowQuickfix()
+    call HideOutput()
+    call Quickfix()
 endfunction
 
-function! ShowQuickfix()
+function! Quickfix()
     let list = getqflist()
     let bugs = len(list)
 
@@ -67,8 +68,7 @@ function! ShowQuickfix()
         echo ' Compile success!'
         " Hide the quickfix window
         silent! exe 'cw'
-        " Run it
-        call RunWin()
+        call Run()
     else
         echo ' Fix bugs first.'
         " Show the quickfix window
@@ -77,7 +77,7 @@ function! ShowQuickfix()
 
 endfunction
 
-function! HideOutputWin()
+function! HideOutput()
     let output_file = string(getpid()) . '.output'
     let bufnumlist  = tabpagebuflist()
 
@@ -91,15 +91,16 @@ function! HideOutputWin()
 
 endfunction
 
-function! RunWin()
-    call HideOutputWin()
+function! Run()
+    call HideOutput()
     
+    let src_winnr   = winnr()
     let root        = expand('%:r')
     let output_file = string(getpid()) . '.output'
     let bin_file    = root
 
     redir => sb_message
-    :silent! set sb?
+    silent! set sb?
     redir END
     let sb_message = 'set '. substitute(sb_message, '^\W\s*', '', '')
 
@@ -107,9 +108,10 @@ function! RunWin()
     silent! exe '6split ' . output_file 
     silent! exe '%!' . bin_file
 
-    silent! exe ':update'
+    "silent! exe ':update'
     silent! exe ':set filetype=tmp'
     :set nosplitbelow
 
-    :silent! set sb_message
+    silent! set sb_message
+    silent! exe src_winnr . 'wincmd w'
 endfunction
