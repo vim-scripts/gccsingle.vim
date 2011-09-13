@@ -26,7 +26,7 @@
 " Author:   Tian Huixiong: <nedzqbear@gmail.com>
 "           I'm very glad to receive your feedback.
 
-" Version:  1.2
+" Version:  1.3
 " Update:   2011-09-13
 " Licence:  This script is released under the Vim License.
 "
@@ -35,16 +35,11 @@
 "     Or put it in $vim/vimfiles/plugin on Windows.
 
 " Tutorial:
-"     Add these to your vimrc file:
-"     "-----gccsingle.vim-----: Quick run single c source file in vim
-"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,g  :call Gcc()<cr>
-"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,r  :call Run()<cr>
-"     autocmd FileType c,cpp  nnoremap <buffer><silent> ,h  :call HideOutput()<cr>
-"     autocmd FileType tmp    nnoremap <buffer><silent> ,h  :q!<cr>
-"     
 "     compile and run:      ,g   (g means gcc)
 "     run the program:      ,r   (r means run)
 "     hide the output:      ,h   (h means hide)
+"
+"     If you don't like these mapping, just modify the source code.
 
 
 function! Gcc()
@@ -115,3 +110,9 @@ function! Run()
     silent! set sb_message
     silent! exe src_winnr . 'wincmd w'
 endfunction
+
+autocmd FileType c,cpp  nnoremap <buffer><silent> ,g  :call Gcc()<cr>
+autocmd FileType c,cpp  nnoremap <buffer><silent> ,r  :call Run()<cr>
+autocmd FileType c,cpp  nnoremap <buffer><silent> ,h  :call HideOutput()<cr>
+autocmd FileType tmp    nnoremap <buffer><silent> ,h  :q!<cr> 
+
