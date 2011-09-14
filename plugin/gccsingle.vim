@@ -26,7 +26,7 @@
 " Author:   Tian Huixiong: <nedzqbear@gmail.com>
 "           I'm very glad to receive your feedback.
 
-" Version:  1.3
+" Version:  1.4
 " Update:   2011-09-13
 " Licence:  This script is released under the Vim License.
 "
@@ -60,12 +60,12 @@ function! Quickfix()
     let bugs = len(list)
 
     if bugs == 0
-        echo ' Compile success!'
+        echo 'Compile success!'
         " Hide the quickfix window
         silent! exe 'cw'
         call Run()
     else
-        echo ' Fix bugs first.'
+        echo 'Fix bugs first.'
         " Show the quickfix window
         silent! exe 'cw ' . string((bugs + 1) > 9 ? 9 : (bugs + 1))
     endif
@@ -90,9 +90,14 @@ function! Run()
     call HideOutput()
     
     let src_winnr   = winnr()
-    let root        = expand('%:r')
     let output_file = string(getpid()) . '.output'
-    let bin_file    = root
+    let bin_file    = expand('%:p:r')
+
+    if executable(bin_file) != 1
+        " Program not exist
+        echo bin_file . '.exe not exist.'
+        return
+    endif
 
     redir => sb_message
     silent! set sb?
