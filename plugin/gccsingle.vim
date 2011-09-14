@@ -26,8 +26,8 @@
 " Author:   Tian Huixiong: <nedzqbear@gmail.com>
 "           I'm very glad to receive your feedback.
 
-" Version:  1.4
-" Update:   2011-09-13
+" Version:  1.5
+" Update:   2011-09-14
 " Licence:  This script is released under the Vim License.
 "
 " Install:
@@ -69,7 +69,6 @@ function! Quickfix()
         " Show the quickfix window
         silent! exe 'cw ' . string((bugs + 1) > 9 ? 9 : (bugs + 1))
     endif
-
 endfunction
 
 function! HideOutput()
@@ -84,6 +83,7 @@ function! HideOutput()
         endif
     endfor
 
+    silent! exe ':setlocal laststatus=2'
 endfunction
 
 function! Run()
@@ -110,6 +110,7 @@ function! Run()
 
     "silent! exe ':update'
     silent! exe ':set filetype=tmp'
+    silent! exe ':setlocal laststatus=0'
     :set nosplitbelow
 
     silent! set sb_message
