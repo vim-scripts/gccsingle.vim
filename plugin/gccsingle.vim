@@ -26,7 +26,7 @@
 " Author:   Tian Huixiong: <nedzqbear@gmail.com>
 "           I'm very glad to receive your feedback.
 
-" Version:  1.5
+" Version:  1.6
 " Update:   2011-09-14
 " Licence:  This script is released under the Vim License.
 "
@@ -120,5 +120,5 @@ endfunction
 autocmd FileType c,cpp  nnoremap <buffer><silent> ,g  :call Gcc()<cr>
 autocmd FileType c,cpp  nnoremap <buffer><silent> ,r  :call Run()<cr>
 autocmd FileType c,cpp  nnoremap <buffer><silent> ,h  :call HideOutput()<cr>
-autocmd FileType tmp    nnoremap <buffer><silent> ,h  :q!<cr> 
+autocmd FileType tmp    nnoremap <buffer><silent> ,h  :call HideOutput()<cr>
 
